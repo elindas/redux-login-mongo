@@ -3,8 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -12,10 +10,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Formik} from "formik";
-import {login} from "../actions"
-import {connect} from "react-redux"
-
+import { Link as NavLink } from "react-router-dom";
+import { Formik } from "formik";
+import { login } from "../actions";
+import { connect } from "react-redux";
 
 function Copyright() {
   return (
@@ -66,11 +64,15 @@ function SignIn(props) {
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, actions) => {
-           props.login(values)
+            props.login(values);
           }}
         >
           {props => (
-            <form className={classes.form} noValidate onSubmit={props.handleSubmit}>
+            <form
+              className={classes.form}
+              noValidate
+              onSubmit={props.handleSubmit}
+            >
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -99,10 +101,6 @@ function SignIn(props) {
                 onBlur={props.handleBlur}
                 value={props.values.password}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
               <Button
                 type="submit"
                 fullWidth
@@ -123,6 +121,11 @@ function SignIn(props) {
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
+                <Grid>
+                  <NavLink to="/signup">
+                    {"Don't have an account? Sign Up"}
+                  </NavLink>
+                </Grid>
               </Grid>
             </form>
           )}
@@ -135,12 +138,12 @@ function SignIn(props) {
   );
 }
 
-const mapDispatchToProps= dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
-    login: values=>{
-      dispatch(login(values))
+    login: values => {
+      dispatch(login(values));
     }
-  }
-}
+  };
+};
 
-export default connect(null, mapDispatchToProps)(SignIn)
+export default connect(null, mapDispatchToProps)(SignIn);
